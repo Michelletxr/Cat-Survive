@@ -1,10 +1,10 @@
-public enum STATE {SUCCEED, FAILED, RUNNING}
+public enum STATE_TASK {SUCCEED, FAILED, RUNNING}
 
 public interface Task
 {
     //GameObject agent { get; set; }
 
-    STATE currState { get; set; }
+   // STATE_TASK currState { get; set; }
 
-    STATE Execute();
+    STATE_TASK Execute();
 }

@@ -1,10 +1,12 @@
-public class Behavior_Rat : MonoBehaviour{
 
-    GameObject rat;
 
-    public STATE Dead(){}
+public class Behavior_Rat{
 
-    public STATE RunToPlayer(){}
+    //GameObject rat;
 
-    public STATE Walking(){}
+    //public STATE_TASK Dead(){}
+
+    //public STATE_TASK RunToPlayer(){}
+
+    //public STATE_TASK Walking(){}
 }

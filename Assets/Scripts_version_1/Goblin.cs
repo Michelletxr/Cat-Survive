@@ -1,27 +1,32 @@
 //implementar primeiro o comportamento do goblin
 //montar cenario de labirinto
-public class Goblin : MonoBehaviour{
+using UnityEngine;
+public class Goblin_v1 : MonoBehaviour{
 
         //definir as condições
-        bool isPlayerAround(){
+        public bool isPlayerAround(){
             return posPlayer.gameObject != null;
 
         }
 
-        bool isLifeZero(){
-            return life == 0;
+        public bool isLifeZero(){
+            //return life == 0;
+            return false;
         }
 
-        bool isPlayerOnCollisionEnter2D(){
-            int distancePositions = this.transform.position - this.agent.posPlayer;
-            return distancePositions <= 1;
+        public bool isPlayerOnCollisionEnter2D(){
+            //int distancePositions = this.transform.position - this.posPlayer.position;
+            //return distancePositions <= 1;
+            return false;
         }
 
 
         public Rigidbody2D rb;
-        public Transform posPlayer;
-
+        public Transform posPlayer { get; set; }
         public int life = 100;
+
+        public GameObject gameObject { get; set; }
+
 
         void Start()
         {

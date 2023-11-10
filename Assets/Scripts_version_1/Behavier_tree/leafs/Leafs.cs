@@ -1,38 +1,41 @@
-public delegate STATE ProcessAction();
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Action: Task {
+public delegate STATE_TASK ProcessAction(GameObject agent);
 
-    //o agente que executa a ação
-    private GameObject agent;
-    //recebe uma função que executa uma ação pelo gameObject
+public class Action : Task{
     private ProcessAction currAction;
+    private GameObject agent;
 
-    public Action(GameObject gameObject, ProcessAction actionFunc){
-        agent = gameObject;
+    public Action(ProcessAction actionFunc, GameObject agentNPC){
         currAction = actionFunc;
+        agent = agentNPC;
     }
 
-    //realiza a chamada da função executando a ação atual
-    public STATE Execute(){
-        return currAction();
+    public STATE_TASK Execute(){
+        return currAction(agent);
     }
 }
 
+public delegate bool VerifyCondition();
 
-//função que checa uma condição
-public delegate bool VerifyCondiction();
+public class Condition : Task
+{
+    private VerifyCondition isCondition;
 
-public class Condiction: Task {
-    //recebe uma função que retorna se uma condição é verdadeira ou não
-    private VerifyCondiction iscondiction;
-
-    public Condiction(VerifyCondiction condictionFunc){
-        iscondiction = condictionFunc;
+    public Condition(VerifyCondition conditionFunc)
+    {
+        isCondition = conditionFunc;
     }
 
-
-    //realiza a chamada da função verificando se ela é verdadeira ou não
-    public STATE Execute(){
-        if iscondiction()? STATE.SUCCEED else STATE.FAILED;
+    public STATE_TASK Execute()
+    {
+        if (isCondition()){
+            return STATE_TASK.SUCCEED;
+        }
+        else{
+            return STATE_TASK.FAILED;
+        }
     }
 }

@@ -1,52 +1,90 @@
 
 //defirnir o comportamento do goblin
-public STATE Dead(){
-    public STATE Execute(){
-        if(this.agent.isLifeZero){
-            Destroy(this.agent);
-            return STATE.SUCCEED;
-        }
-        return STATE.FAILED;
-    }
-}
+using System;
+using UnityEngine;
 
-public STATE Damage(){
-    public STATE Execute(){
-        if(){
-            Debug.Log("GOBLIN SOFRE DANO");
-            return STATE.RUNNING;
-        }
-        return STATE.FAILED;
-    }
-}
+public class Behavior_Goblin {
 
-public STATE AttackPlayer(){
-    public STATE Execute(){
-        if(this.agent.isPlayerAround and !this.agent.isPlayerOnCollisionEnter2D){
-            Debug.Log("ATACANDO PLAYER");
-            return STATE.RUNNING;
-        }
-        return STATE.FAILED;
-    }
-}
+    public Goblin_v1 goblin { get; set; }
+    private GameObject agent { get; set; }
 
-public STATE killerPlayer(){
-     public STATE Execute(){
-        if(this.agent.isPlayerOnCollisionEnter2D){
-            GameObject.FindWithTag("player").SetActive(false)
-            return STATE.SUCCEED;
-        }
-        return STATE.FAILED;
+    public Behavior_Goblin(Goblin_v1 _goblin){
+        goblin = _goblin;
+        this.agent = goblin.gameObject;
     }
-}
 
-public STATE moveToPlayer(){
-    public STATE Execute(){
-        if(this.agent.isPlayerAround){
-            this.agent.transform.position = Vector2.MoveTowards(agent.transform.position,
-            this.agent.posPlayer.position, 1 * Time.deltaTime);
-            return STATE.SUCCEED;
+    public Action Dead
+    {
+        get
+        {
+            return new Action((agent) => {
+                if (goblin.isLifeZero) {
+                    GameObject.Destroy(agent);
+                    return STATE_TASK.SUCCEED;
+                }
+                return STATE_TASK.FAILED;
+            }, agent);
         }
-        return STATE.FAILED;
+    }
+
+    public Action Damage
+    {
+        get
+        {
+            return new Action((agent) => {
+                bool condition = true; // Substitua por sua própria condição
+                if (condition) {
+                    Debug.Log("GOBLIN SOFRE DANO");
+                    return STATE_TASK.SUCCEED;
+                }
+                return STATE_TASK.FAILED;
+            }, agent);
+        }
+    }
+
+    public Action AttackPlayer
+    {
+        get
+        {
+            return new Action((agent) => {
+                if (goblin.isPlayerAround && !goblin.isPlayerOnCollisionEnter2D) {
+                    Debug.Log("ATACANDO PLAYER");
+                    return STATE_TASK.RUNNING;
+                }
+                return STATE_TASK.FAILED;
+            }, agent);
+        }
+    }
+
+    public Action KillerPlayer
+    {
+        get
+        {
+            return new Action((agent) => {
+                if (goblin.isPlayerAround && goblin.isPlayerOnCollisionEnter2D) {
+                    GameObject player = GameObject.FindWithTag("player");
+                    if (player != null) {
+                        GameObject.Destroy(player);
+                    }
+                    return STATE_TASK.SUCCEED;
+                }
+                return STATE_TASK.FAILED;
+            }, agent);
+        }
+    }
+
+    public Action MoveToPlayer
+    {
+        get
+        {
+            return new Action((agent) => {
+                if (goblin.isPlayerAround) {
+                    agent.transform.position = Vector2.MoveTowards(agent.transform.position, 
+                    goblin.posPlayer.position, 1 * Time.deltaTime);
+                    return STATE_TASK.SUCCEED;
+                }
+                return STATE_TASK.FAILED;
+            }, agent);
+        }
     }
 }

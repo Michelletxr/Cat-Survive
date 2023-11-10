@@ -1,74 +1,75 @@
-public class Sequence : Task {
-
+public class Sequence : Task{
     private Task[] subtasks;
 
-    public Sequence(tasks: Task[]){
+    public Sequence(Task[] tasks){
         subtasks = tasks;
     }
 
-    public STATE Execute(){
+    public STATE_TASK Execute(){
 
         foreach (Task task in subtasks){
-            foreach (Task task in subtasks){
-                STATE stateTask = task.Execute();
-                if (stateTask != STATE.SUCCEED){
-                    return STATE.FAILED;
-                }
+            STATE_TASK stateTask = task.Execute();
+            if (stateTask != STATE_TASK.SUCCEED){
+                return STATE_TASK.FAILED;
             }
-            return STATE.SUCCEED;
         }
-
+        return STATE_TASK.SUCCEED;
     }
-
 }
 
-public class Selector : Task {
+public class Selector : Task{
     private Task[] subtasks;
 
-    public Selector(tasks: Task[]){
+    public Selector(Task[] tasks){
         subtasks = tasks;
     }
 
-     public STATE Execute(){
-
+    public STATE_TASK Execute(){
         foreach (Task task in subtasks){
-            STATE stateTask = task.Execute();
-            if (stateTask != STATE.FAILED){
-                return STATE.SUCCEED;
+            STATE_TASK stateTask = task.Execute();
+            if (stateTask != STATE_TASK.FAILED){
+                return STATE_TASK.SUCCEED;
             }
         }
-        return STATE.FAILED;
+        return STATE_TASK.FAILED;
     }
-
 }
 
-public class Parallel : Task {
+public class Parallel : Task{
     private Task[] subtasks;
-    private int totalSucced = 0;
+    private int totalSucceed = 0;
     private int totalFailed = 0;
 
-     public Parallel(tasks: Task[]){
+    public Parallel(Task[] tasks, int succeedThreshold, int failThreshold){
         subtasks = tasks;
+        totalSucceed = succeedThreshold;
+        totalFailed = failThreshold;
     }
 
-    public STATE Execute(){
-        
-        int countSuccess = 0
-        int countFailure = 0
-        STATE result = STATE.RUNNING;
-        STATE status = task.execute(gameObj)
-        switch (status) {
-            case Task.SUCCEED: countSuccess++; break;
-            case Task.FAILED: countFailure++; break;
+    public STATE_TASK Execute(){
+        int countSuccess = 0;
+        int countFailure = 0;
+        STATE_TASK result = STATE_TASK.RUNNING;
+
+        foreach (Task task in subtasks){
+            STATE_TASK stateTask = task.Execute();
+            switch (stateTask){
+                case STATE_TASK.SUCCEED:
+                    countSuccess++;
+                    break;
+                case STATE_TASK.FAILED:
+                    countFailure++;
+                    break;
+            }
         }
 
-        if(countSuccess >= this.totalSucced){
-            result = Task.SUCCEED;
-        }else if(countFailure >= this.totalFailed){
-            result = Task.FAILED;
+        if (countSuccess >= totalSucceed){
+            result = STATE_TASK.SUCCEED;
+        }
+        else if (countFailure >= totalFailed){
+            result = STATE_TASK.FAILED;
         }
 
         return result;
     }
-
 }

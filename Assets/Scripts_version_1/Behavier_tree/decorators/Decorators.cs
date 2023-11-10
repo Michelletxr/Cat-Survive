@@ -1,53 +1,48 @@
-public class Inverter : Task {
 
+public class Inverter : Task{
     private Task task;
 
-    public Inverter(_task: Task){
-        task = _tasks;
+    public Inverter(Task _task){
+        task = _task;
     }
 
-    public STATE Execute(){
-
-        STATUS status = this.task.Execute();
-        switch (status) {
-            case STATE.SUCCEED: return STATE.FAILED;
-            case STATE.FAILED: return STATE.SUCCEED;
+    public STATE_TASK Execute(){
+        STATE_TASK stateTask = task.Execute();
+        switch (stateTask){
+            case STATE_TASK.SUCCEED:
+                return STATE_TASK.FAILED;
+            case STATE_TASK.FAILED:
+                return STATE_TASK.SUCCEED;
         }
-        return STATE.RUNNING;
-    }
-
-}
-
-
-public class RepeatUntilSucceed : Task {
-    private Task task;
-
-    public RepeatUntilSucceed(_task: Task){
-        task = _tasks;
-    }
-
-    public STATE Execute(){
-
-        STATUS status = this.task.Execute();
-        if (status === STATE.SUCCEED) {
-            return STATE.SUCCEED;
-        }
-        return STATE.RUNNING;
+        return STATE_TASK.RUNNING;
     }
 }
 
-public class Repeat : Task {
-
+public class RepeatUntilSucceed : Task{
     private Task task;
 
-    public Repeat(_task: Task){
-        task = _tasks;
+    public RepeatUntilSucceed(Task _task){
+        task = _task;
     }
 
-    public STATE Execute(){
+    public STATE_TASK Execute(){
+        STATE_TASK stateTask = task.Execute();
+        if (stateTask == STATE_TASK.SUCCEED){
+            return STATE_TASK.SUCCEED;
+        }
+        return STATE_TASK.RUNNING;
+    }
+}
 
-        this.task.Execute();
-        return STATE.RUNNING;
+public class Repeat : Task{
+    private Task task;
+
+    public Repeat(Task _task){
+        task = _task;
     }
 
+    public STATE_TASK Execute(){
+        task.Execute();
+        return STATE_TASK.RUNNING;
+    }
 }
