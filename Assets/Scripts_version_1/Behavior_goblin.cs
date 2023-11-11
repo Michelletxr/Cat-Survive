@@ -18,7 +18,7 @@ public class Behavior_Goblin {
         get
         {
             return new Action((agent) => {
-                if (goblin.isLifeZero) {
+                if (goblin.isLifeZero()) {
                     GameObject.Destroy(agent);
                     return STATE_TASK.SUCCEED;
                 }
@@ -27,10 +27,10 @@ public class Behavior_Goblin {
         }
     }
 
-    public Action Damage
+    public Action Damage()
     {
-        get
-        {
+        
+        
             return new Action((agent) => {
                 bool condition = true; // Substitua por sua própria condição
                 if (condition) {
@@ -39,7 +39,7 @@ public class Behavior_Goblin {
                 }
                 return STATE_TASK.FAILED;
             }, agent);
-        }
+        
     }
 
     public Action AttackPlayer
@@ -47,7 +47,7 @@ public class Behavior_Goblin {
         get
         {
             return new Action((agent) => {
-                if (goblin.isPlayerAround && !goblin.isPlayerOnCollisionEnter2D) {
+                if (goblin.isPlayerAround() && !goblin.isPlayerOnCollisionEnter2D()) {
                     Debug.Log("ATACANDO PLAYER");
                     return STATE_TASK.RUNNING;
                 }
@@ -61,7 +61,7 @@ public class Behavior_Goblin {
         get
         {
             return new Action((agent) => {
-                if (goblin.isPlayerAround && goblin.isPlayerOnCollisionEnter2D) {
+                if (goblin.isPlayerAround() && goblin.isPlayerOnCollisionEnter2D()) {
                     GameObject player = GameObject.FindWithTag("player");
                     if (player != null) {
                         GameObject.Destroy(player);
@@ -78,7 +78,7 @@ public class Behavior_Goblin {
         get
         {
             return new Action((agent) => {
-                if (goblin.isPlayerAround) {
+                if (goblin.isPlayerAround()) {
                     agent.transform.position = Vector2.MoveTowards(agent.transform.position, 
                     goblin.posPlayer.position, 1 * Time.deltaTime);
                     return STATE_TASK.SUCCEED;

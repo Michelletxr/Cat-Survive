@@ -27,11 +27,17 @@ public class Goblin_v1 : MonoBehaviour{
 
         public GameObject gameObject { get; set; }
 
+        public Behavior_Goblin behavior_Goblin;
+
 
         void Start()
         {
+            Debug.Log("INICIAR bt");
             rb = GetComponent<Rigidbody2D>();
-            posPlayer = GameObject.FindWithTag("player").transform;
+            posPlayer = GameObject.FindWithTag("rat").transform;
+
+            behavior_Goblin = new Behavior_Goblin(this);
+            behavior_Goblin.Damage().Execute();
         }
 
         void Update()
