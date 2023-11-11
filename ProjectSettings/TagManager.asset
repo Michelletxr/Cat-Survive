@@ -8,6 +8,7 @@ TagManager:
   - bord
   - player
   - enemy
+  - wall
   layers:
   - Default
   - TransparentFX

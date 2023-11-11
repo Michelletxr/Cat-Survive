@@ -22,12 +22,12 @@ public class Goblin_v1 : MonoBehaviour{
 
 
         public Rigidbody2D rb;
+        public Transform[] pointsToMove;
         public Transform posPlayer { get; set; }
-        public int life = 100;
-
         public GameObject gameObject { get; set; }
 
         public Behavior_Goblin behavior_Goblin;
+        public int life = 100;
 
 
         void Start()

@@ -1,7 +1,11 @@
-public class Sequence : Task{
-    private Task[] subtasks;
 
-    public Sequence(Task[] tasks){
+using System;
+using System.Collections.Generic;
+
+public class Sequence : Task{
+    private  List<Task> subtasks;
+
+    public Sequence(List<Task>  tasks){
         subtasks = tasks;
     }
 
