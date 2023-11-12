@@ -20,6 +20,12 @@ public class Goblin_v1 : MonoBehaviour{
             return false;
         }
 
+        public Condition isRatOnCollision(){
+            return new Condition(() => {
+                return this.colliderRat;
+            });
+        }
+
 
         public Rigidbody2D rb;
         public Transform[] pointsToMove;
@@ -29,6 +35,8 @@ public class Goblin_v1 : MonoBehaviour{
         public Behavior_Goblin behavior_Goblin;
         public int life = 100;
 
+        public bool colliderRat = false;
+
 
         void Start()
         {
@@ -37,14 +45,27 @@ public class Goblin_v1 : MonoBehaviour{
             posPlayer = GameObject.FindWithTag("rat").transform;
 
             behavior_Goblin = new Behavior_Goblin(this);
-            behavior_Goblin.Damage().Execute();
+           // behavior_Goblin.createBehavior();
         }
 
-        void Update()
+        private void OnCollisionEnter(Collision collision)
+    {
+        // Verifica se a colisão envolve o objeto atual
+        if (collision.gameObject.CompareTag("rat"))
         {
+            this.colliderRat = true;
+            Debug.Log("Colisão com o alvo!");
             
-            
+            // Faça algo quando houver colisão com o objeto marcado como "Alvo"
+        }
     }
+
+        void Update(){
+            //behavior_Goblin.MoveToWall().Execute();
+            //Debug.Log("update");
+            behavior_Goblin.createBehavior();
+            
+        }
 
 
 }

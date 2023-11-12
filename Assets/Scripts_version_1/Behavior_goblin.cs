@@ -7,44 +7,53 @@ using UnityEngine;
 public class Behavior_Goblin {
 
     public Goblin_v1 goblin { get; set; }
-    private GameObject agent { get; set; }
+    public GameObject agent { get; set; }
 
     //variaveis para auxiliar a ronda
-    private Transform[] pointsRound = agent.pointsToMove;
+    public Transform[] pointsRound { get; set; }
     private int currPoint;
-
     public float velocity = 1;
 
     public Behavior_Goblin(Goblin_v1 _goblin){
         goblin = _goblin;
-        this.agent = goblin.gameObject;
-        this.pointsRound = agent.pointsToMove;
+        agent = GameObject.FindWithTag("goblin");
+        //this.pointsRound = goblin.pointsToMove;
+        this.pointsRound = new Transform[1];
+        this.pointsRound[0] = GameObject.FindWithTag("rat").transform;
         this.currPoint = 0;
     }
 
-    public Action MoveToWall(){
+    public Action MoveToWall()
+    {
+
+        Transform wallPoss = pointsRound[currPoint];
 
         return new Action((agent) => {
-            Transform wallPoss = pointsRound[currPoint];
-            
+            Debug.Log("GOBLIN SE MOVE ATÉ PAREDE");
+
             if(agent.transform.position  == wallPoss.position){ return STATE_TASK.SUCCEED;}
+
+            Debug.Log("GOBLIN SE MOVE ATÉ PAREDE");
             
-            agent.transform.position = Vector2.MoveTowards(agent.transform.position, 
-                pointsRound[currPoint].position, 
-                velocity * Time.deltaTime);
+            this.agent.transform.position = Vector2.MoveTowards(this.agent.transform.position, 
+                GameObject.FindWithTag("rat").transform.position, 
+                1 * Time.deltaTime);
+                
             
-            return TaskStatus.RUNNING;
-        }, agent);
+            
+            return STATE_TASK.SUCCEED;
+        }, this.agent);
 
     }
 
     public Action Turn(){
 
         return new Action((agent) => {
-            
-            if (agent.transform.position  == pointsRound[currPoint].position){
+            Debug.Log("Turn");
+            if (goblin.isRatOnCollision().Execute() = STATE_TASK.SUCCEED){
+                Debug.Log("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 currPoint += 1;
-                lastPosX = agent.transform.localPosition.x;
+                float lastPosX = this.agent.transform.localPosition.x;
                 if (currPoint >= pointsRound.Length){ currPoint = 0; }
                 return STATE_TASK.SUCCEED;
             }
@@ -133,8 +142,9 @@ public class Behavior_Goblin {
     public void createBehavior() {
 
         // --- COMPOSITIONS ---
-        Sequence round = new Sequence(new List<Task> {this.MoveToWall(), this.Turn()});
-        round.Execute();
+        List<Task> actionsList = new List<Task> {MoveToWall(), Turn()};
+        Sequence round = new Sequence(actionsList);
+        Debug.Log(round.Execute());
         
     }
 }

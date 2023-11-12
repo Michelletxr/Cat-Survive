@@ -1,6 +1,8 @@
 
+
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Sequence : Task{
     private  List<Task> subtasks;
@@ -14,7 +16,8 @@ public class Sequence : Task{
         foreach (Task task in subtasks){
             STATE_TASK stateTask = task.Execute();
             if (stateTask != STATE_TASK.SUCCEED){
-                return STATE_TASK.FAILED;
+                 Debug.Log("sequencia de task");
+                return stateTask;
             }
         }
         return STATE_TASK.SUCCEED;
