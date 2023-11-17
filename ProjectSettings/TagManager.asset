@@ -5,11 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - rat
-  - bord
   - player
   - enemy
   - wall
   - goblin
+  - PointsRound
+  - cheese
+  - path
+  - item
+  - maze
   layers:
   - Default
   - TransparentFX
