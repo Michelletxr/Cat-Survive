@@ -49,17 +49,7 @@ public class Rat_v1 : MonoBehaviour {
         Debug.Log("Golin entrou na area de colisão");
     }
 
-    public void DisableTheCollider()
-    {
-        // Verifica se o Collider existe
-        if (ratCollider != null){
-            // Desabilita o Collider
-            ratCollider.enabled = false;
-        }
-        else {
-            Debug.LogWarning("Collider não atribuído ou não encontrado!");
-        }
-    }
+
 
     void Update() {
         if(behavior_rat != null){

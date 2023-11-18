@@ -123,6 +123,39 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &39859337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39859338}
+  m_Layer: 0
+  m_Name: GameAgents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &39859338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39859337}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.264654, y: 0.750025, z: -0.023427991}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2068543446}
+  - {fileID: 620253240}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &297340018
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +567,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 620253235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0a0990050b2d174782e5cf794fe7769, type: 3}
+  m_Script: {fileID: 11500000, guid: fc35190d006a2b54086f7804f6be2b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
@@ -664,12 +697,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620253235}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.264654, y: -0.750025, z: 0.023427991}
   m_LocalScale: {x: 1.5996611, y: 0.9987713, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 39859338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &828008238
 GameObject:
@@ -712,12 +745,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 828008238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22b099b5449a1a3a8a232412ed1bfaf6, type: 3}
+  m_Script: {fileID: 11500000, guid: 20d87e093b345014f98c8118aa56f563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathPoints: []
-  speed: 5
-  objectToMove: {fileID: 620253235}
 --- !u!1 &928648186
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,9 +945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a94ee2ba74b1fe819e86fc80a981e76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wall: {fileID: 441768756}
-  path: {fileID: 1279368200}
-  door: {fileID: 1453963045}
 --- !u!50 &1072130488
 Rigidbody2D:
   serializedVersion: 4
@@ -999,7 +1026,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1072130484}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09f068f66155dbb5f892d5f30d01bbb4, type: 3}
+  m_Script: {fileID: 11500000, guid: e25931f99f3bb8548ae9767614c88cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scenarioIsInit: 0
@@ -1262,12 +1289,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2068543441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8177f232ef21457e0812ce95fa126585, type: 3}
+  m_Script: {fileID: 11500000, guid: f5d9d94cabb1c764cae0e04e47f1ef17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 2068543444}
-  pointsToMove:
-  - {fileID: 0}
+  rb: {fileID: 0}
+  pointsToMove: []
   life: 100
   collidePointsRound: 0
   collideRat: 0
@@ -1403,12 +1429,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068543441}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.84, y: 1.42, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.575346, y: 0.669975, z: 0.023427991}
   m_LocalScale: {x: 1.8927741, y: 2.2879019, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 39859338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -1417,5 +1443,4 @@ SceneRoots:
   - {fileID: 928648189}
   - {fileID: 1072130486}
   - {fileID: 828008239}
-  - {fileID: 620253240}
-  - {fileID: 2068543446}
+  - {fileID: 39859338}

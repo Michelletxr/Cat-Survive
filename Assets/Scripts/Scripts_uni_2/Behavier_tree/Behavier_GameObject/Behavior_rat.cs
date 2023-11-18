@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Behavior_Rat {
-    public Rat_v1 rat { get; set; }
     public GameObject agent { get; set; }
-    //variaveis para auxiliar na coleta de queijo
+    public Rat_v1 rat { get; set; }
+    //variaveis para auxiliar na coleta de queijo e movimento
     public GameObject[] objectsCheese { get; set; }
-    private int currPoint;
-    public float velocity;
-    public GridMoviments gridMoviments;
-    public MainMaze mainMaze;
+    public GridMoviments_v1 gridMoviments;
+    public GameObjectMoviment movimentScript;
     public Tuple<int, int> pointRat;
     public List<Tuple<int, int>> pointsCheese;
+    public MainMaze mainMaze;
    
     public Condition isCheeseOnCollision(){
         return new Condition(() => {
@@ -26,7 +25,6 @@ public class Behavior_Rat {
         });
     }
 
-
     public Action CheckPointsCheese() {
         return new Action((agent) => {
 
@@ -34,7 +32,6 @@ public class Behavior_Rat {
             
             if(objectsCheese.Length > 0) {
                 Debug.Log("EXISTE QUEIJO NA REGIÃO");
-                this.currPoint = objectsCheese.Length - 1;
                 return STATE_TASK.SUCCEED;
             }
             
@@ -48,24 +45,18 @@ public class Behavior_Rat {
 
             if(mainMaze.graphGenerate == null || mainMaze.itemsPoints == null) {return STATE_TASK.FAILED;}
 
-            if(this.pointsCheese == null){ 
-                
-                this.pointsCheese = this.gridMoviments.OrderPointsByDistance(mainMaze.itemsPoints);
-
-            }
+            if(this.pointsCheese == null){ this.pointsCheese = this.gridMoviments.OrderPointsByDistance(mainMaze.itemsPoints);}
 
             Tuple<int, int> nextPoint = this.pointsCheese[0];
             List<Node> path_cheese = gridMoviments.GeneratePathByPoints(this.pointRat, nextPoint, mainMaze.graphGenerate);
-
             
             if(agent.transform.position  == new Vector3((float)nextPoint.Item1, (float)nextPoint.Item2, 0)){ 
                 this.pointRat = nextPoint;
                 return STATE_TASK.SUCCEED;
             }else{
-
-                Node nextNode = gridMoviments.getNextNode(path_cheese);
-                gridMoviments.MoveToPoints(this.agent, nextNode);
-                this.pointRat = new Tuple<int, int>(nextNode.x, nextNode.y);
+                //Node nextNode = gridMoviments.getNextNode(path_cheese);
+                //gridMoviments.MoveToPoints(this.agent, nextNode);
+                //this.pointRat = new Tuple<int, int>(nextNode.x, nextNode.y);
                 Debug.Log("RATO esta no ponto: " + nextNode);
             }
 
@@ -129,11 +120,14 @@ public class Behavior_Rat {
     public Behavior_Rat(Rat_v1 _rat, MainMaze main){
         rat = _rat;
         mainMaze = main;
-        gridMoviments = new GridMoviments();
+        gridMoviments = new GridMoviments_v1();
         agent = GameObject.FindWithTag("rat");
         pointRat = new Tuple<int, int>(0,0);
-        this.velocity = 1;
-        this.currPoint = -1;
+
+        GameObject gameAgentsObj = GameObject.Find("GameAgents");
+        if (gameAgentsObj != null){
+           this.movimentScript = gameAgentsObj.GetComponent<GameObjectMoviment>();
+        }
     }
 
     public void createBehavior() {
@@ -141,9 +135,9 @@ public class Behavior_Rat {
         List<Task> actionsList = new List<Task> {CheckPointsCheese(), MoveToCheese(), colletCheese()};
         List<Task> actionsList_1 = new List<Task> {FindOut(), MoveToOut()};
         Sequence findCheese = new Sequence(actionsList);
-        Sequence findOut = new Sequence(actionsList_1);
+        //Sequence findOut = new Sequence(actionsList_1);
         findCheese.Execute();
-        findOut.Execute();
+       // findOut.Execute();
         
     }
 }

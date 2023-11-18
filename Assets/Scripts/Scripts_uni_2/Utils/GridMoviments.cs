@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class GridMoviments {
+//mudar node da classe para PathUtils
+public class GridMoviments_v1 {
 
     public float speed = 10f; // Velocidade de movimento
     private int currentPointIndex = 0;
     private int totalPoints = 0;
+
+    private bool moveObject = false;
 
     public void MoveToPoints(GameObject objectToMove, Node node){
 
@@ -16,7 +18,6 @@ public class GridMoviments {
             float step = speed * Time.deltaTime;
             objectToMove.transform.position = Vector2.MoveTowards(objectToMove.transform.position, new Vector2(node.x, node.y), step);
         }
-
     }
 
     public List<Tuple<int, int>> OrderPointsByDistance(List<Tuple<int, int>> points){
