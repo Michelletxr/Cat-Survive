@@ -18,14 +18,16 @@ public class Goblin_v1 : MonoBehaviour{
         public int life = 100;
 
         public bool collidePointsRound = false;
-        public bool collideRat;
+        public bool collideRat { get; set; }
+        public bool chaseRat { get; set; }
         //eventos
        // public UnityEvent receivedDamage;
 
         void Start() {
             rb = GetComponent<Rigidbody2D>();
             posPlayer = GameObject.FindWithTag("rat").transform;
-            behavior_Goblin = new Behavior_Goblin(this);
+            GameObject maze = GameObject.Find("MainMaze");
+            behavior_Goblin = new Behavior_Goblin(this, maze.GetComponent<MainMaze>());
             this.collideRat = false;
         }
 
@@ -33,12 +35,24 @@ public class Goblin_v1 : MonoBehaviour{
         // Verifica se a colisão envolve o objeto atual
         if (collision.gameObject.CompareTag("PointsRound")) {
             this.collidePointsRound = true;
-            Debug.Log("Colisão com o alvo!");
+            //Debug.Log("Colisão com o alvo!");
         }
 
          if (collision.gameObject.CompareTag("rat")) {
             this.collideRat = true;
-            Debug.Log("Colisão com o alvo!");
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision){
+        if (collision.gameObject.CompareTag("rat")){
+            this.collideRat = true;
+            //Debug.Log("Colisão com o rato!");
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision){
+        if (collision.gameObject.CompareTag("rat")){
+            this.collideRat = false;
         }
     }
 

@@ -63,7 +63,6 @@ public class A_Star {
                 if (!CLOSED.Contains(neighbor)) {
 
                     //Debug.Log("ADICIONANDO NO FECHADO");
-                    //Debug.Log(neighbor);
 
                     neighbor.parent = currentNode;
                     neighbor.g_dist = currentNode.g_dist + cost;

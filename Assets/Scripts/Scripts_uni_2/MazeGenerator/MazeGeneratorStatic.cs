@@ -88,6 +88,7 @@ public class MazeGeneratorStatic : MonoBehaviour
 
         GameObject obj = Instantiate(enemy, new Vector2(x,y), Quaternion.identity); // Define os pontos como caminhos no labirinto
         obj.name = $"enemy";
+        obj.tag = "enemy";
     }
 
 
@@ -113,7 +114,7 @@ public class MazeGeneratorStatic : MonoBehaviour
     {
         int rows = 11; // número de linhas
         int columns = 10; // número de colunas
-        int totalItems = 3; // número de caminhos a serem gerados
+        int totalItems = 4; // número de caminhos a serem gerados
 
         int[,] maze = 
         {

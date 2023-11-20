@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 39859338}
+  - component: {fileID: 39859339}
   m_Layer: 0
   m_Name: GameAgents
   m_TagString: Untagged
@@ -156,6 +157,20 @@ Transform:
   - {fileID: 620253240}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &39859339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39859337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: babbffc00846f364ca8089fd75047d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToMove: {fileID: 0}
+  pathPoints: []
 --- !u!1 &297340018
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +351,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441768756}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -573,6 +588,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   ratCollider: {fileID: 0}
   collideCheese: 0
+  collideEnemy: 0
   totalCheeseCollet: 0
   life: 100
 --- !u!58 &620253237
@@ -604,12 +620,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.09}
   serializedVersion: 2
-  m_Radius: 0.9
+  m_Radius: 2
 --- !u!50 &620253238
 Rigidbody2D:
   serializedVersion: 4
@@ -1296,7 +1312,6 @@ MonoBehaviour:
   pointsToMove: []
   life: 100
   collidePointsRound: 0
-  collideRat: 0
 --- !u!61 &2068543443
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1326,7 +1341,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.08}
@@ -1430,8 +1445,8 @@ Transform:
   m_GameObject: {fileID: 2068543441}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.575346, y: 0.669975, z: 0.023427991}
-  m_LocalScale: {x: 1.8927741, y: 2.2879019, z: 1}
+  m_LocalPosition: {x: -0.5092, y: 0.6204, z: 0.023427991}
+  m_LocalScale: {x: 2.0996137, y: 2.3396626, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 39859338}

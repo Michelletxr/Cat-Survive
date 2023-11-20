@@ -7,6 +7,7 @@ public class Rat_v1 : MonoBehaviour {
     public Collider2D ratCollider;
     public Behavior_Rat behavior_rat;
     public bool collideCheese = false;
+    public bool collideEnemy = false;
     public int totalCheeseCollet = 0;
     public int life = 100;
 
@@ -18,35 +19,28 @@ public class Rat_v1 : MonoBehaviour {
         GameObject maze = GameObject.Find("MainMaze");
         
         behavior_rat = new Behavior_Rat(this, maze.GetComponent<MainMaze>());
-
-        if (ratCollider != null)
-        {
-            ratCollider.enabled = false; // Desabilita o collider
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
         // Verifica se a colisão envolve o objeto atual
-        if (collision.gameObject.CompareTag("cheese")){
+        if (collision.gameObject.CompareTag("item")){
             this.collideCheese = true;
-            Debug.Log("Colisão com o alvo!");
+            Debug.Log("Colisão com o alvo item!");
         }
     }
 
     public void OnTriggerEnter2D(Collider2D collision){
         if (collision.gameObject.CompareTag("enemy")){
-            this.life = this.life - 10;
-            if(ratCollider.enabled) {  ratCollider.enabled = false; }
-            Debug.Log("Colisão com o alvo!");
+            this.collideEnemy = false;
+            Debug.Log("enemy is  enter trigger colision");
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision){
         if (collision.gameObject.CompareTag("enemy") && !ratCollider.enabled){
-            ratCollider.enabled = true;
-            Debug.Log("Colisão com o alvo!");
+            this.collideEnemy = false;
+            Debug.Log("enemy is  exit trigger colision");
         }
-        Debug.Log("Golin entrou na area de colisão");
     }
 
 

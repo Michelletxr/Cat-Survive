@@ -9,24 +9,23 @@ public class Node {
     public int y { get; set; }
     public int x { get; set; }
 
-    public Node(int x, int y){
+    public Node(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public override string ToString()
-    {
+    public override string ToString() {
         return $"({x}, {y})";
     }
 
-    public override bool Equals(object obj){
-        if (obj is Node _node){
+    public override bool Equals(object obj) {
+        if (obj is Node _node) {
             return this.x == _node.x && this.y == _node.y;
         }
         return false;
     }
 
-     public override int GetHashCode(){
+     public override int GetHashCode() {
         return 0;
        // return x.GetHashCode() ^ y.GetHashCode();
     }
