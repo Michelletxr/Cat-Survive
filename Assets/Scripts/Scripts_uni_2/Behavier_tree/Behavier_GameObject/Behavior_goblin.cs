@@ -124,7 +124,7 @@ public class Behavior_Goblin {
         List<Task> actionsList_1 = new List<Task> {IsRatOnArea(), MoveToRat(), AttackRat()};
         // Sequence round = new Sequence(actionsList);
         Sequence captureRat = new Sequence(actionsList_1);
-        //captureRat.Execute();
+        captureRat.Execute();
 
         //definir comportamento para seguir o rato ou fazer ronda
         //Selector selector = new Selector(new List<Task>{round, captureRat});
